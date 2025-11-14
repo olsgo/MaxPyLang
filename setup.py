@@ -7,7 +7,7 @@ setup(
     author_email='ranger.liu@columbia.edu',
     packages=find_packages(),
     package_data={
-        'maxpy': ['data/**/*'],
+        'maxpy-lang': ['data/**/*'],
     },
     scripts=[],
     url='http://pypi.python.org/pypi/MaxPy-lang/',

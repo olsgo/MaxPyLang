@@ -6,7 +6,9 @@ MaxPy is a Python package for metaprogramming of MaxMSP that uses Python to gene
 ## Installation
 
 ```bash
-pip install maxpy
+git clone https://github.com/Barnard-PL-Labs/MaxPy-Lang.git
+cd MaxPy-Lang
+pip install .
 ```
 
 ## Documentation
