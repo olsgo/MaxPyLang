@@ -13,10 +13,10 @@ pip3 install .
 ```
 
 ## Documentation
-- [Full Documentation](https://barnard-pl-labs.github.io/MaxPy/)
-- [API Reference](https://barnard-pl-labs.github.io/MaxPy/API/API.html)
-- [Examples](https://github.com/Barnard-PL-Labs/MaxPy/tree/main/examples)
-- [Tutorial](https://barnard-pl-labs.github.io/MaxPy/tutorial.html)
+- [Full Documentation](https://barnard-pl-labs.github.io/MaxPyLang/)
+- [API Reference](https://barnard-pl-labs.github.io/MaxPyLang/API/API.html)
+- [Examples](https://github.com/Barnard-PL-Labs/MaxPyLang/tree/main/examples)
+- [Tutorials](https://barnard-pl-labs.github.io/MaxPyLang/tutorial.html)
 
 ## Quick Start
 
