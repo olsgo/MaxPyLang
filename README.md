@@ -9,7 +9,7 @@ MaxPyLang is a Python package for metaprogramming of MaxMSP that uses Python to 
 ```bash
 git clone https://github.com/Barnard-PL-Labs/MaxPyLang.git
 cd MaxPyLang
-pip install .
+pip3 install .
 ```
 
 ## Documentation
@@ -20,7 +20,9 @@ pip install .
 
 ## Quick Start
 
-See this example in [examples/hello_world](examples/hello_world).
+See this example in [examples/hello_world](./examples/hello_world).
+To run this, `python3 examples/hello_world/hello_world.py` will create a Max patch file `hello_world.maxpat` that contains a simple audio oscillator connected to the DAC.
+You can then open this patch in MaxMSP and click the DAC to hear a 440 Hz tone.
 
 ```python
 import maxpylang as mp
@@ -36,7 +38,7 @@ patch.save("hello_world.maxpat")
 
 MaxPy was published as a [demo paper](MaxPy-NIME-2023-Paper.pdf) for NIME 2023.
 The package name was updated to MaxPyLang in 2025 to avoid confusion with other similarly named packages.
-    
+
 ## Video Demos 
 ### [Basics](https://www.youtube.com/watch?v=F8Fpe0Udc4M)      
 [![Introduction to MaxPy](https://img.youtube.com/vi/F8Fpe0Udc4M/0.jpg)](https://www.youtube.com/watch?v=F8Fpe0Udc4M)     
