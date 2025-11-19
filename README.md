@@ -51,17 +51,3 @@ Ranger explains a MaxPy script that dynamically generates an additive synth with
 ### [Replace() function]((https://youtu.be/RgYRqXn8Z6o))       
 [![Using Replace() function with MaxPy](https://img.youtube.com/vi/RgYRqXn8Z6o/0.jpg)](https://youtu.be/RgYRqXn8Z6o)      
 Satch explains using the replace() function to selectively replace objects in a loaded patch to sonify stock data. The code for this is under [examples/stocksonification_v1](examples/stocksonification_v1). 
-
-## Formal Grammar of MaxMSP
-To aid the development of MaxPy, we attempted to define a formal grammar of MaxMSP as a programming language. However, we discovered three major issues: 1) typing problems, 2) irregular objects, and 3) mismatches between saved program files and in-environment program behavior. See [this Google doc](https://docs.google.com/document/u/5/d/e/2PACX-1vQuFN8D44U0Z2s_2Jn3AcnZTgZrhUOEkb2gffNPamdWSFFroIWiXKIFlCmmnJs1XF0L7yd18yhqJO8a/pub) (in progress) for a writeup of these issues.   
-
-## Related work
-
-https://github.com/grrrr/py
-
-## Contributors
-Ranger Liu (developer)   
-Dr. Mark Santolucito (PI)      
-Richard Lee (documentation and examples)     
-Satchel Peterson (documentation and examples)     
-
