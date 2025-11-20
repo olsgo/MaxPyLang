@@ -7,9 +7,9 @@ MaxPyLang is a Python package for metaprogramming of MaxMSP that uses Python to 
 ## Installation
 
 ```bash
-git clone https://github.com/Barnard-PL-Labs/MaxPyLang.git
-cd MaxPyLang
-pip3 install .
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install maxpylang
 ```
 
 ## Documentation
