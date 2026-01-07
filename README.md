@@ -4,7 +4,11 @@
 
 MaxPyLang is a Python package for metaprogramming of MaxMSP that uses Python to generate and edit Max patches. MaxPyLang allows users to move freely between text-based Python programming and visual programming in Max, making it much easier to implement dynamic patches, random patches, mass-placement and mass-connection of objects, and other easily text-programmed techniques.
 
+As a text-based interface to MaxMSP, MaxPyLang enables vibecoding of Max patches. Provide an example to your tool of choice (Claude code, Cursor, etc), and ask for the patch you would like. Tutorial coming soon.
+
 ## Installation
+
+We publish our package on Pypi as [MaxPyLang](https://pypi.org/project/maxpylang/). It is easiest to install from there.
 
 ```bash
 python3 -m venv .venv
