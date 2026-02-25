@@ -38,6 +38,48 @@ patch.connect([osc.outs[0], dac.ins[0]])
 patch.save("hello_world.maxpat")
 ```
 
+## CLI Quick Start
+
+MaxPyLang now ships with a CLI command named `maxpylang`.
+
+```bash
+# Create a new patch
+maxpylang new --out patch.maxpat
+
+# Place two objects into that patch
+maxpylang --in-place place --in patch.maxpat \
+  --obj "cycle~ 440" \
+  --obj "ezdac~"
+
+# Connect object outlet/inlet pairs
+maxpylang --in-place connect --in patch.maxpat \
+  --edge "obj-1:0->obj-2:0" \
+  --edge "obj-1:0->obj-2:1"
+
+# Equivalent connect syntax using --from/--to pairs
+maxpylang --in-place connect --in patch.maxpat \
+  --from "obj-1:0" --to "obj-2:0" \
+  --from "obj-1:0" --to "obj-2:1"
+
+# Check for unknown/unlinked objects
+maxpylang check --in patch.maxpat
+
+# Export a Max for Live device file (.amxd), skip runtime validation when needed
+maxpylang export-amxd --in patch.maxpat --out device.amxd --no-validate
+```
+
+For automation, add `--json` to return structured command output.
+In JSON mode, CLI output is guaranteed to be JSON-only on stdout.
+Each JSON payload includes:
+- `schema_version` for envelope compatibility
+- `schema` for command success/error schema id
+- `data_schema` for command-specific data payload schema id
+- `generated_at` timestamp
+- `diagnostics` for captured internal log lines that would otherwise pollute stdout
+
+`export-amxd` validates by default by opening the exported file in Max and waiting for an auto-save roundtrip.
+Current validation runtime support is macOS with a local Max installation.
+
 ## Citation
 
 MaxPy was published as a [demo paper](examples/NIME2023/MaxPy-NIME-2023-Paper.pdf) for NIME 2023.
