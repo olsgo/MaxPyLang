@@ -75,8 +75,6 @@ def build_from_dict(self, given_dict):
     Builds object from given json dict representation. 
     """
 
-    print(self.parse_text(given_dict['box']['text']))
-
     #get name, args, attribs
     if given_dict['box']['maxclass'] == 'newobj': #not ui obj
         self._name, self._args, self._text_attribs = self.parse_text(given_dict['box']['text'])
@@ -104,4 +102,3 @@ def build_from_dict(self, given_dict):
     self.make_xlets_from_self_dict()
     
     return
-

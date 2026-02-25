@@ -26,7 +26,8 @@ def delete(self, objs=None, cords=None, verbose=True):
 
     #check format
     for obj in objs:
-        assert isinstance(obj, str), f"objects to delete must be given as strings 'obj-num'"
+        if not isinstance(obj, str):
+            raise TypeError("objects to delete must be given as strings 'obj-num'")
     self.check_connection_format(cords)
 
     #remove nonexistent cords
@@ -106,20 +107,23 @@ def delete_objs(self, *objs, verbose=True):
     Objects must be specified as 'obj-num' strings
     """
 
+    objs = list(objs)
+
     #check for obj existence
-    for i in range(len(objs)):
-        obj = objs[i]
-        if obj not in self.objs.keys():                  #if object in patch
-            print("delete error:", obj, "not in patch") #if obj not in patch, print error 
-            objs.remove(obj)                           #and remove from delete list
+    valid_objs = []
+    for obj in objs:
+        if obj not in self.objs.keys():
+            print("delete error:", obj, "not in patch")
+            continue
+        valid_objs.append(obj)
 
     #get patchcords connected to objs, for deletion
-    cords_to_delete = self.delete_get_extra_cords(*objs)
+    cords_to_delete = self.delete_get_extra_cords(*valid_objs)
     #delete patchcords
-    self.delete_cords(*cords_to_delete)
+    self.delete_cords(*cords_to_delete, verbose=verbose)
 
     #delete objects
-    for obj in objs:
+    for obj in valid_objs:
         obj_name = self._objs[obj].name #save for logging
         del self._objs[obj]
 

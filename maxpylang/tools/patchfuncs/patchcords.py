@@ -113,15 +113,20 @@ def check_connection_format(self, connections):
     """
 
     for connection in connections:
-        assert (
-            isinstance(connection[0], Outlet)
-            and isinstance(connection[1], Inlet)
-            and f"connections must be specified as (Outlet, Inlet, [optional: midpoints])"
-        )
-        if len(connection) == 3:
-            assert isinstance(
-                connection[2], list
-            ), f"optional midpoints must be specified as list"
+        if not isinstance(connection, (list, tuple)):
+            raise TypeError(
+                "connections must be list/tuple values of (Outlet, Inlet[, midpoints])"
+            )
+        if len(connection) < 2 or len(connection) > 3:
+            raise ValueError(
+                "connections must be specified as (Outlet, Inlet[, midpoints])"
+            )
+        if not isinstance(connection[0], Outlet) or not isinstance(connection[1], Inlet):
+            raise TypeError(
+                "connections must be specified as (Outlet, Inlet[, midpoints])"
+            )
+        if len(connection) == 3 and not isinstance(connection[2], list):
+            raise TypeError("optional midpoints must be provided as a list")
 
     return
 

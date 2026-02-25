@@ -20,6 +20,7 @@ Methods related to placing objects in a MaxPatch.
 from __future__ import annotations
 
 import random
+import numpy as np
 from maxpylang.maxobject import MaxObject
 
 # for user usage
@@ -108,9 +109,8 @@ def place_check_args(
 
     # check objs
     for obj in objs:
-        assert isinstance(
-            obj, (MaxObject, str, list)
-        ), f"objs list must be strings or existing MaxObjects"
+        if not isinstance(obj, (MaxObject, str)):
+            raise TypeError("objs must contain only strings or MaxObject instances")
 
     # check num_objs
     if num_objs == None:
@@ -130,9 +130,10 @@ def place_check_args(
         if isinstance(
             num_objs, list
         ):  # giving number of multiples for each given object
-            assert len(num_objs) == len(
-                objs
-            ), f"if num_objs is list, length of num_objs must match length of objs"
+            if len(num_objs) != len(objs):
+                raise ValueError(
+                    "if num_objs is a list, its length must match the number of objs"
+                )
     elif randpick == True:
         if isinstance(num_objs, list):  # only take the first number for random picking
             print(
@@ -140,16 +141,15 @@ def place_check_args(
             )
             num_objs = int(num_objs[0])
         if weights is not None:
-            assert len(weights) == len(
-                objs
-            ), f"length of weights must match length of objs"
+            if len(weights) != len(objs):
+                raise ValueError("length of weights must match length of objs")
 
     # check spacing args
     if spacing_type == "grid":
-        assert isinstance(spacing, (list, tuple)) and len(spacing) == 2, (
-            f"spacing_type=grid: spacing must "
-            "be 2-element list or tuple of [x, y] grid spacings"
-        )
+        if not (isinstance(spacing, (list, tuple)) and len(spacing) == 2):
+            raise ValueError(
+                "spacing_type=grid requires a 2-element [x, y] spacing list/tuple"
+            )
     elif spacing_type == "random":
         pass
     elif spacing_type == "custom":
@@ -167,26 +167,23 @@ def place_check_args(
         elif randpick == True:
             # num_objs is the number of objects being picked
             actual_num = num_objs
-        assert isinstance(spacing, (list)) and len(spacing) == actual_num, (
-            f"spacing_type=custom: "
-            "must give one position for each object in objs list"
-        )
+        if not (isinstance(spacing, list) and len(spacing) == actual_num):
+            raise ValueError(
+                "spacing_type=custom requires one [x, y] position per placed object"
+            )
     elif spacing_type == "vertical":
-        assert isinstance(spacing, (int, float)), (
-            f"spacing_type=vertical: spacing must "
-            "be int or float for vertical spacing"
-        )
+        if not isinstance(spacing, (int, float)):
+            raise ValueError(
+                "spacing_type=vertical requires spacing to be an int or float"
+            )
     else:
-        assert (
-            False
-        ), f"spacing_type not recognized, must be one of grid, random, custom, or vertical"
+        raise ValueError(
+            "spacing_type must be one of: grid, random, custom, vertical"
+        )
 
     if starting_pos is not None:
         if not (isinstance(starting_pos, (list, tuple)) and len(starting_pos) == 2):
-            print(
-                " PatchError: starting position must be [x, y] list or tuple of length 2, starting position not set"
-            )
-            starting_pos = None
+            raise ValueError("starting_pos must be a [x, y] list or tuple")
 
     return num_objs, starting_pos
 
@@ -201,7 +198,6 @@ def place_pick_objs(self, objs, randpick, num_objs, seed, weights, verbose):
 
     picked_objs = []
 
-    print(objs)
     # picking randomly
     if randpick == True:
         if seed is None:  # generate seed if not given
@@ -215,18 +211,14 @@ def place_pick_objs(self, objs, randpick, num_objs, seed, weights, verbose):
 
     # multiply from given list
     elif randpick == False:
-        #objs = objs[0] not sure why this was here
-        if isinstance(objs, str):
-            objs = [objs]
+        if isinstance(num_objs, list):
+            counts = [int(x) for x in num_objs]
+        else:
+            counts = [int(num_objs)] * len(objs)
 
-        if isinstance(num_objs, (int, float)):  # make num_objs into proper list form
-            num_objs = [int(num_objs)] * len(objs)
-            for obj, num in zip(
-                objs, num_objs
-            ):  # make copies of each obj, according to num_obj
-                picked_objs += [obj] * num
+        for obj, count in zip(objs, counts):
+            picked_objs += [obj] * count
 
-    print(picked_objs)
     return picked_objs
 
 
@@ -395,9 +387,8 @@ def get_obj_from_spec(self, obj_spec):
 
     # otherwise, make sure it's a MaxObject
     else:
-        assert isinstance(
-            obj_spec, MaxObject
-        ), f"object must be specified as a string or a MaxObject"
+        if not isinstance(obj_spec, MaxObject):
+            raise TypeError("object must be specified as a string or a MaxObject")
         obj = obj_spec
 
     return obj

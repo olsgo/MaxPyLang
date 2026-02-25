@@ -18,9 +18,18 @@ authors = [
     {name = "Mark Santolucito", email = "msantolu@barnard.edu"},
 ]
 dependencies = [
+    "click>=8.1.7",
     "numpy>=1.22.0",
     "sphinx_rtd_theme",
     "tabulate",
+]
+
+[project.scripts]
+maxpylang = "maxpylang.cli.main:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
 ]
 
 [project.urls]
@@ -32,4 +41,3 @@ include-package-data = true
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["maxpylang*"]
-
